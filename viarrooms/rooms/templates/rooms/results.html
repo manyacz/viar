@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Результаты : : {{ block.super }}
+{% endblock %}
+
+
+
+{% block content %}
+
+Результаты
+
+   
+{% for item in reserve %}
+<p class="card-text">{{ item.reserve}} Дата</p><br>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Galery : {{ block.super }}
+{% endblock %}
+
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'content.css' %}">
+<div class="card mr-9">
+  <div class="card-body">
+    <div class="media">
+      {% for item.photo in rooms %}
+      <img src="{{ item.photo.url }}" alt="" width="350" height="250" class="mr-3">
+      {% endfor %}
+    </div>
+  </div>
+</div>   
+{% endblock %}

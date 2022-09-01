@@ -1,0 +1,29 @@
+.md-12 {
+    background: url("WhatsApp_Image_2022-08-12_at_15.20.35_bEqmV53.jpeg") no-repeat fixed;
+    height: 700px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: grey;
+    border-color: goldenrod;
+    width: 350px;
+    float: right;
+    
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color:goldenrod;
+    border-color: grey;
+    width: 350px;
+    float: right;
+}
+
+.btn-primary a {
+    color:bisque;
+  }
+
+  .btn-primary:hover a {
+    color:darkgreen;
+  }

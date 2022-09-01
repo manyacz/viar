@@ -1,0 +1,38 @@
+.col.md-12 {
+	column-width: 50%;
+	column-count: 2;
+	column-gap: 1%;
+	background: #fff;
+}
+
+.col.md-12 .card-mr-9 {
+	padding: 0px;
+	margin: 0 0 20px 0;
+}
+
+
+.btn-primary {
+    background-color: grey;
+    border-color: goldenrod;
+}
+
+.btn-primary:hover {
+    background-color:goldenrod;
+    border-color: grey;
+}
+
+.btn-primary a {
+    color:bisque;
+  }
+
+.btn-primary:hover a {
+    color:darkgreen;
+}
+
+.card-title {
+    color:black;
+    border-color: gold;
+    font-size: 1.9rem;
+    font-stretch: extra-condensed;
+    margin: 0 15 0 0;
+}

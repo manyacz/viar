@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Цены : {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="card mr-9">
+    <div class="card-body">
+      <div class="media">
+        <img src="{% static 'IMG20220818155153.jpg' %}" width='100%'class="mr-9">
+      </div>
+    </div>
+  </div>   
+
+
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ rooms_item.title }} : : {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+<div class="card mb-3">
+  <div class="card-body">
+      {% if rooms_item.photo %}
+      <img src="{{ rooms_item.photo.url }}" alt="" width="350" height="250" class="float-left mr-3">
+      {% else %}
+      <img src="https://picsum.photos/id/1060/350/235/?blur=2" alt="" class="float-left mr-3">
+      {% endif %}
+        <h5 class="card-title">{{ rooms_item.title }}</h5>
+        <p class="card-text">{{ item.content|safe|linebreaks }}</p>
+  </div>
+</div>   
+{% endblock %}

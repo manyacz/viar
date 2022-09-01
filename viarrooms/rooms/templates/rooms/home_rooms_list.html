@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ title }} : : {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'content.css' %}">
+{% for item in rooms %}
+<div class="card mr-9">
+  <div class="card-body">
+    <div class="media">
+      {% if item.photo %}
+      <img src="{{ item.photo.url }}" alt="" width="350" height="250" class="mr-3">
+      {% else %}
+      <img src="https://picsum.photos/id/1060/350/235/?blur=2" alt="" class="mr-3">
+      {% endif %}
+      <div class="media-body">
+        <br><h5 class="card-title">{{ item.title }}</h5><br>
+        <p class="card-text">{{ item.price }} AMD в месяц</p><br>
+        <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Подробнее...</a>
+      </div>
+    </div>
+  </div>
+</div>   
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,13 @@
+.navbar-nav {
+  font-family: 'Lato', sans-serif;
+  color:black;
+  border-color: gold;
+  font-size: 20px;
+  margin: 0px;
+}
+
+.navbar-links a {
+  font-size: 20px;
+  color:black;
+  margin: 20px;
+}
