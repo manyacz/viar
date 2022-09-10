@@ -10,7 +10,7 @@ urlpatterns = [
     path('rooms/', HomeRooms.as_view(), name='rooms'),
     path('about/', about, name='about'),
     path('prices/', prices, name='prices'),
-    path('galery/', galery, name='galery'),
+    path('galery/', Galery.as_view(), name='galery'),
     # path('test/', test, name='test'),
     # path('index/', index, name='index'),
     path('api/v1/roomslist/', RoomsAPIView.as_view()),

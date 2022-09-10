@@ -17,9 +17,6 @@ def about(request):
 def prices(request):
     return render(request, template_name='rooms/prices.html')
 
-def galery(request):
-    return render(request, template_name='rooms/galery.html')
-
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -62,6 +59,14 @@ def search_room(request):
     else:
         form = SearchForm()
     return render(request, 'rooms/search_room.html', {'form': form})
+
+class Galery(ListView):
+    model = Rooms
+    template_name = 'rooms/galery.html'
+    context_object_name = 'rooms'
+
+    def get_queryset(self):
+        return Rooms.objects.filter(photo=True)
 
 class HomeRooms(ListView):
     model = Rooms
@@ -108,7 +113,6 @@ class RoomsBySearch(ListView):
             form = SearchForm()
         return render(request, 'rooms/results', {'form': form})
         
-
 class RoomsAPIView(generics.ListAPIView):
     queryset = Rooms.objects.all()
     serializer_class = RoomsSerializer
