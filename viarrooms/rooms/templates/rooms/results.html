@@ -1,18 +1,30 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}
-Результаты : : {{ block.super }}
+Результаты : {{ block.super }}
 {% endblock %}
 
 
-
 {% block content %}
-
-Результаты
-
-   
-{% for item in reserve %}
-<p class="card-text">{{ item.reserve}} Дата</p><br>
+<link rel="stylesheet" href="{% static 'content.css' %}">
+{% for item in object_list %}
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="media">
+      {% if item.photo %}
+      <img src="{{ item.photo.url }}" alt="" width="350" height="250" class="mr-3">
+      {% else %}
+      <img src="https://picsum.photos/id/1060/350/235/?blur=2" alt="" class="mr-3">
+      {% endif %}
+      <div class="media-body">
+        <h5 class="card-title">{{ item.title }}</h5>
+        <p class="card-text">{{ item.content|safe|linebreaks|truncatewords:30 }}</p>
+        <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Read more ...</a>
+      </div>
+    </div>
+  </div>
+</div>   
 {% endfor %}
-
 {% endblock %}

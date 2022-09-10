@@ -53,10 +53,12 @@ def search_room(request):
     if request.method == 'POST':
         form = SearchForm(data = request.POST)
         if form.is_valid():
-            messages.success(request, 'Форма заполнена!')
+            pass
+            # messages.success(request, 'Форма заполнена!')
             return redirect('results')
         else:
-            messages.error(request, 'Форма не заполнена!')
+            pass
+            # messages.error(request, 'Форма не заполнена!')
     else:
         form = SearchForm()
     return render(request, 'rooms/search_room.html', {'form': form})
@@ -84,36 +86,30 @@ class CreateRooms(CreateView):
     
 class RoomsBySearch(ListView):
     model = Rooms
-    template_name = 'rooms/home_rooms_list.html'
-    context_object_name = 'rooms'
-    allow_empty = False
+   
+    # def get_queryset(self):
+    #     return Rooms.objects.filter(date_start__gte = date_in, date_end__lte = date_out)
     
-    
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = Rooms.objects.get(pk=self.kwargs['title'])
-        return context
-    
-    def get_queryset(self):
-        return Rooms.objects.filter()
+    def search_from_form(request):
+        if request.method == 'POST':
+            form = SearchForm(request.POST)
+            if form.is_valid():
+                date_in = form.date_in
+                date_out = form.date_out
+                peoples = form.peoples
+                if date_in and date_out and peoples:
+                    messages.success(request, 'Мгновение и найдем варианты!')
+                    return redirect('results')
+                else:
+                    messages.error(request, 'Ошибка заполнения поиска')
+            else:
+                messages.error(request, 'Ошибка регистрации')
+        else:
+            form = SearchForm()
+        return render(request, 'rooms/results', {'form': form})
         
 
 class RoomsAPIView(generics.ListAPIView):
     queryset = Rooms.objects.all()
     serializer_class = RoomsSerializer
     
-# def test(request):
-#     if request.method == 'POST':
-#         form = ContactForm(request.POST)
-#         if form.is_valid():
-#             mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['content'], 'mynewtestlogdj@gmail.com', ['nelubimayaya@gmail.com'], fail_silently=False)
-#             if mail:
-#                 messages.success(request, 'Письмо отправлено!')
-#                 return redirect('test')
-#             else:
-#                 messages.error(request, 'Ошибка отправки')
-#         else:
-#             messages.error(request, 'Ошибка регистрации')
-#     else:
-#         form = ContactForm()
-#     return render(request, 'rooms/test.html', {'form': form})
