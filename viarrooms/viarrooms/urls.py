@@ -33,3 +33,7 @@ urlpatterns = [
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+
+urlpatterns += [path(r"images-handler/", include("galleryfield.urls"))]
+urlpatterns += [path('photologue/', include('photologue.urls', namespace='photologue')),
+]

@@ -4,9 +4,10 @@ from django.views.generic import ListView, DetailView, CreateView
 from .forms import RoomsForm, UserRegisterForm, UserLoginForm, ContactForm, SearchForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.core.mail import send_mail
+# from django.core.mail import send_mail
 from rest_framework import generics
 from .serialazers import RoomsSerializer
+from photologue.models import ImageModel, Photo
 
 def home(request):
     return render(request, template_name='rooms/home.html')
@@ -60,13 +61,26 @@ def search_room(request):
         form = SearchForm()
     return render(request, 'rooms/search_room.html', {'form': form})
 
-class Galery(ListView):
-    model = Rooms
-    template_name = 'rooms/galery.html'
-    context_object_name = 'rooms'
+def search_from_form(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            date_in = form.date_in
+            date_out = form.date_out
+            peoples = form.peoples
+            if date_in and date_out and peoples:
+                messages.success(request, 'Мгновение и найдем варианты!')
+                return redirect('results')
+            else:
+                messages.error(request, 'Ошибка заполнения поиска')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = SearchForm()
+    return render(request, 'rooms/results.html', {'form': form})
 
-    def get_queryset(self):
-        return Rooms.objects.filter(photo=True)
+def galery(request):
+    return render(request, template_name='rooms/galery.html')
 
 class HomeRooms(ListView):
     model = Rooms
@@ -89,29 +103,6 @@ class CreateRooms(CreateView):
     form_class = RoomsForm
     template_name = 'rooms/add_rooms.html'
     
-class RoomsBySearch(ListView):
-    model = Rooms
-   
-    # def get_queryset(self):
-    #     return Rooms.objects.filter(date_start__gte = date_in, date_end__lte = date_out)
-    
-    def search_from_form(request):
-        if request.method == 'POST':
-            form = SearchForm(request.POST)
-            if form.is_valid():
-                date_in = form.date_in
-                date_out = form.date_out
-                peoples = form.peoples
-                if date_in and date_out and peoples:
-                    messages.success(request, 'Мгновение и найдем варианты!')
-                    return redirect('results')
-                else:
-                    messages.error(request, 'Ошибка заполнения поиска')
-            else:
-                messages.error(request, 'Ошибка регистрации')
-        else:
-            form = SearchForm()
-        return render(request, 'rooms/results', {'form': form})
         
 class RoomsAPIView(generics.ListAPIView):
     queryset = Rooms.objects.all()
